@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sovereign Stack — A Blueprint for a Cryptographically Governed Nation-State</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #0a0a0f;
+    --deep: #0f0f1a;
+    --surface: #141420;
+    --card: #1a1a2e;
+    --border: #2a2a45;
+    --glow: #4a9eff;
+    --gold: #c9a84c;
+    --amber: #e8b84b;
+    --crimson: #c0392b;
+    --sage: #4a8f6f;
+    --text: #e8e4d9;
+    --muted: #8a8599;
+    --faint: #3a3a55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--obsidian);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(74,158,255,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(74,143,111,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grid texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(74,158,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,158,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+  }
+
+  .hero-emblem {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+
+  .hero-emblem svg {
+    width: 100%;
+    height: 100%;
+    animation: rotate-slow 30s linear infinite;
+  }
+
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-emblem-inner {
+    position: absolute;
+    inset: 20px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    animation: rotate-slow 20s linear infinite reverse;
+  }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--glow);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 span {
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  .hero-abstract {
+    max-width: 620px;
+    font-size: 1.05rem;
+    color: #b8b4a9;
+    font-style: italic;
+    line-height: 1.85;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+    text-align: left;
+    margin: 0 auto 3rem;
+  }
+
+  .scroll-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--faint);
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+  }
+
+  nav .container {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  nav a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+
+  nav a:first-child { border-left: 1px solid var(--border); }
+  nav a:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-child { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--glow);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-marker::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--glow), transparent);
+    opacity: 0.3;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 2.5rem 0 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  h4 {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--glow);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 1rem; color: #c8c4b9; }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  em { color: var(--amber); font-style: italic; }
+
+  /* PILLAR CARDS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    margin: 2.5rem 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .pillar {
+    background: var(--card);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .pillar:hover { background: #1e1e35; }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .pillar.btc::before { background: linear-gradient(90deg, var(--amber), transparent); }
+  .pillar.eth::before { background: linear-gradient(90deg, var(--glow), transparent); }
+  .pillar.stable::before { background: linear-gradient(90deg, var(--sage), transparent); }
+
+  .pillar-icon {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pillar.btc .pillar-icon { color: var(--amber); }
+  .pillar.eth .pillar-icon { color: var(--glow); }
+  .pillar.stable .pillar-icon { color: var(--sage); }
+
+  .pillar-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .pillar-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .pillar p { font-size: 0.92rem; }
+
+  /* SPEC BLOCKS */
+  .spec {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--glow);
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .spec.gold { border-left-color: var(--gold); }
+  .spec.sage { border-left-color: var(--sage); }
+  .spec.crimson { border-left-color: var(--crimson); }
+
+  .spec-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  /* TIER TABLE */
+  .tier-stack {
+    margin: 1.5rem 0;
+  }
+
+  .tier {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 2px;
+  }
+
+  .tier-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    background: var(--faint);
+    color: var(--muted);
+    padding: 1rem 1rem;
+    min-width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .tier-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: none;
+    padding: 0.85rem 1.25rem;
+    flex: 1;
+  }
+
+  .tier-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .tier-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .tier.t1 .tier-num { background: rgba(192,57,43,0.3); color: var(--crimson); }
+  .tier.t2 .tier-num { background: rgba(201,168,76,0.2); color: var(--gold); }
+  .tier.t3 .tier-num { background: rgba(74,158,255,0.15); color: var(--glow); }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 2rem 0;
+  }
+
+  .flow-step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 1.1rem;
+    top: 2.5rem;
+    bottom: -1rem;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .flow-step:last-child::before { display: none; }
+
+  .flow-node {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--glow);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-body {
+    padding: 0 0 2rem 0;
+    flex: 1;
+  }
+
+  .flow-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .flow-desc { font-size: 0.9rem; margin: 0; }
+
+  /* QUOTE */
+  .pull-quote {
+    margin: 3rem 0;
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 400;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* RISK / RESOLUTION CARDS */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 600px) {
+    .risk-grid { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+  }
+
+  .risk-card {
+    background: var(--card);
+    padding: 1.5rem;
+  }
+
+  .risk-card.problem { border-top: 2px solid var(--crimson); }
+  .risk-card.solution { border-top: 2px solid var(--sage); }
+
+  .risk-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .risk-card.problem .risk-label { color: var(--crimson); }
+  .risk-card.solution .risk-label { color: var(--sage); }
+
+  .risk-card p { font-size: 0.9rem; margin: 0; }
+
+  /* CONCLUSION */
+  .conclusion {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    margin: 3rem 0 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .conclusion::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.2), transparent, rgba(74,158,255,0.1));
+    z-index: -1;
+  }
+
+  .conclusion h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 1rem;
+  }
+
+  .conclusion p {
+    max-width: 680px;
+    margin: 0 auto 1rem;
+    font-size: 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--faint);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--faint);
+    letter-spacing: 0.3em;
+  }
+
+  /* INLINE CODE */
+  code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    color: var(--glow);
+  }
+
+  /* ANIMATE ON LOAD */
+  .hero > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  .hero > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero > *:nth-child(4) { animation-delay: 0.55s; }
+  .hero > *:nth-child(5) { animation-delay: 0.7s; }
+  .hero > *:nth-child(6) { animation-delay: 0.85s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-emblem">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.6"/>
+      <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" stroke="#4a9eff" stroke-width="0.5" fill="none" opacity="0.4"/>
+      <circle cx="50" cy="50" r="8" stroke="#c9a84c" stroke-width="0.75" fill="none"/>
+      <line x1="50" y1="5" x2="50" y2="15" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="95" y1="27.5" x2="85" y2="32.5" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="95" y1="72.5" x2="85" y2="67.5" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="50" y1="95" x2="50" y2="85" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="5" y1="72.5" x2="15" y2="67.5" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="5" y1="27.5" x2="15" y2="32.5" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+    </svg>
+    <div class="hero-emblem-inner"></div>
+  </div>
+  <div class="hero-tag">Sovereign Architecture · Complete Blueprint · 2026</div>
+  <h1>The <span>Sovereign</span> Stack</h1>
+  <div class="hero-subtitle">A Blueprint for a Cryptographically Governed Nation-State</div>
+  <div class="hero-abstract">
+    A small, geothermal-rich nation builds a three-layer monetary and governance architecture designed to achieve true sovereign independence — not just political, but cryptographic, economic, and epistemic. Every layer is designed to be ungovernable by anyone who has not actively demonstrated the capacity to reason.
+  </div>
+  <div class="scroll-hint">↓ &nbsp; scroll to read &nbsp; ↓</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a href="#financial">I. Financial Pillars</a>
+    <a href="#governance">II. Governance</a>
+    <a href="#security">III. Security</a>
+    <a href="#energy">IV. Energy</a>
+    <a href="#education">V. Education</a>
+    <a href="#genesis">VI. Genesis</a>
+    <a href="#conclusion">VII. Conclusion</a>
+  </div>
+</nav>
+
+<!-- SECTION I: FINANCIAL PILLARS -->
+<section id="financial">
+  <div class="container">
+    <div class="section-marker">Section I</div>
+    <h2>The Three Financial Pillars</h2>
+    <p>The monetary architecture is not a single currency but a layered system, each layer serving a distinct function. No single layer can be substituted for another.</p>
+
+    <div class="pillars">
+      <div class="pillar btc">
+        <span class="pillar-icon">₿</span>
+        <div class="pillar-title">Bitcoin</div>
+        <div class="pillar-subtitle">The Volcanic Battery · The Reserve</div>
+        <p>Digital gold. The ultimate insurance policy. A hedge against global inflation and a way to store captured geothermal energy in a liquid, global format.</p>
+        <p>If a foreign power attempts to freeze the nation's credit, the Bitcoin reserve remains accessible. It is the hard asset that gives the nation a seat at the international table without requiring a central bank's permission.</p>
+      </div>
+      <div class="pillar eth">
+        <span class="pillar-icon">◈</span>
+        <div class="pillar-title">Sovereign Subnet</div>
+        <div class="pillar-subtitle">The Logical Backbone · The Utility</div>
+        <p>While Bitcoin is the money, the sovereign subnet is the contracting engine — the infrastructure layer where housing, education credentials, energy dispatch, and legal agreements execute as auditable smart contracts.</p>
+        <p>Uses a fixed-fee or gas-free model for public services, allowing the state to budget long-term without market volatility interfering with identity or land registries.</p>
+      </div>
+      <div class="pillar stable">
+        <span class="pillar-icon">◎</span>
+        <div class="pillar-title">Sovereign Stablecoin</div>
+        <div class="pillar-subtitle">The Daily Unit · The Stability</div>
+        <p>Pegged not to the US dollar but to a sovereign basket: <em>1 unit = 10 kWh of geothermal energy + 1kg of ORGANON-certified grain + 1 standard Terra Build block.</em></p>
+        <p>Stable because it is backed by the physical output of the nation itself. It represents the cost of living within the country's own borders.</p>
+      </div>
+    </div>
+
+    <h3>Stablecoin Stability Mechanisms</h3>
+    <p>Three interlocking mechanisms prevent a bank run from collapsing the daily currency:</p>
+
+    <div class="spec gold">
+      <div class="spec-label">Mechanism 01 — Tax-Credit Floor</div>
+      <p>The government guarantees the stablecoin is always accepted for national obligations — taxes, utility bills, land leases — at its pegged value. Even if the market price dips, its internal value remains constant for every citizen who owes the state. Demand is intrinsic, not speculative.</p>
+    </div>
+
+    <div class="spec">
+      <div class="spec-label">Mechanism 02 — AMM Backstop</div>
+      <p>If the stablecoin loses its peg, an Automated Market Maker backed by the Bitcoin reserve automatically purchases excess stablecoins, shrinking the supply and restoring the peg. The BTC reserve ratio is constitutionally mandated at a minimum of <strong>50%</strong> of total stablecoin issuance.</p>
+    </div>
+
+    <div class="spec sage">
+      <div class="spec-label">Mechanism 03 — Sovereign Circuit Breaker</div>
+      <p>Holding limits (modeled on MiCA and GENIUS Act frameworks) manage deposit-flight risk during extreme volatility. The constitution mandates a Hard Reserve trigger: if the ratio drops below 50%, the system automatically activates an Export Drive — redirecting surplus geothermal energy to Bitcoin mining until the ratio is restored.</p>
+    </div>
+
+    <h3>Real-Time Proof of Reserve</h3>
+    <p>Because Bitcoin is a public ledger, the government's reserve addresses are publicly known. The RAIO Mesh (Sovereign AI) continuously computes total stablecoin supply versus BTC market value, displaying a live Health Meter to every citizen through their Orchestrator app. Trust is not declared — it is verifiable at any moment.</p>
+  </div>
+</section>
+
+<!-- SECTION II: GOVERNANCE -->
+<section id="governance">
+  <div class="container">
+    <div class="section-marker">Section II</div>
+    <h2>The Governance Architecture</h2>
+    <p>Smart contracts govern the interactions between national pillars. But code cannot replace law. The governance architecture creates a layered system of human and cryptographic accountability.</p>
+
+    <h3>The Sovereign Subnet</h3>
+    <p>Rather than relying on public Ethereum (where gas fees can spike unpredictably), the nation operates a sovereign subnet engineered specifically for state functions. Every core contract — Finance, Education, Housing — must undergo <strong>Formal Mathematical Verification</strong> before deployment, proving the code cannot enter an illegal state.</p>
+
+    <div class="divider"><span>dispute resolution</span></div>
+
+    <h3>The Bilateral Dispute Layer</h3>
+    <p>Blockchain Dispute Resolution platforms (such as Kleros or Aragon) are integrated as <em>procedural tools</em>, not final judges. The resolution hierarchy operates as follows:</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-node">01</div>
+        <div class="flow-body">
+          <div class="flow-title">Automated Execution</div>
+          <p class="flow-desc">Smart contracts execute outcomes automatically based on sensor data and verified conditions.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node">02</div>
+        <div class="flow-body">
+          <div class="flow-title">BDR Platform Review</div>
+          <p class="flow-desc">Disputes are first processed through the blockchain dispute resolution platform. Citizens who have achieved Mastery in the relevant Logic/Civic track are randomly selected as jurors.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node">03</div>
+        <div class="flow-body">
+          <div class="flow-title">Constitutional Supreme Court</div>
+          <p class="flow-desc">For outcomes that violate the Human Sovereignty clause of the constitution — such as a bug that unfairly evicts a family — the Court holds cryptographic power to pause and revert through a multi-signature override.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>The Public Draft Protocol</h3>
+    <p>Before any core infrastructure spec undergoes formal verification, it is published for a <strong>30-day Red Team period</strong>. Citizens and students in the High School Systems Track are paid in sovereign stablecoin to identify logical bugs or regressive incentives in the spec itself. The final spec must pass a Public Defense where authors answer to a panel of Certified Facilitators, proving alignment with the National Sovereignty Manifesto.</p>
+
+    <div class="spec gold">
+      <div class="spec-label">The Reverse Translation Requirement</div>
+      <p>Before the public draft is finalized, a specialized team of advanced graduates must "reverse-translate" the technical spec back into plain natural language. This plain-language version is what citizen jurors use when exercising their share of the multi-sig. If the plain language and the code outcome diverge in practice, it triggers automatic Judicial Review.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION III: CRYPTOGRAPHIC SECURITY -->
+<section id="security">
+  <div class="container">
+    <div class="section-marker">Section III</div>
+    <h2>Cryptographic Security Architecture</h2>
+    <p>The Supreme Court's override authority is the most powerful mechanism in the system. It cannot be held by any single human. The architecture moves beyond standard multi-sig to Multi-Party Computation with Distributed Key Generation.</p>
+
+    <h3>The MPC/DKG Key Structure</h3>
+    <p>Instead of a physical key existing in a safe, the Supreme Court's authority is split into cryptographic shares. No single justice ever possesses a complete key. To authorize an override, a threshold of justices must perform a joint computation in a Trusted Execution Environment. Three branches hold shares:</p>
+
+    <div class="tier-stack">
+      <div class="tier t1">
+        <div class="tier-num">J</div>
+        <div class="tier-content">
+          <div class="tier-name">Judicial Share — The Will</div>
+          <p class="tier-desc">Held by the Supreme Court. Represents the legal authority to act.</p>
+        </div>
+      </div>
+      <div class="tier t2">
+        <div class="tier-num">L</div>
+        <div class="tier-content">
+          <div class="tier-name">Legislative Share — The Permission</div>
+          <p class="tier-desc">Held by a bipartisan oversight committee. Represents democratic authorization.</p>
+        </div>
+      </div>
+      <div class="tier t3">
+        <div class="tier-num">C</div>
+        <div class="tier-content">
+          <div class="tier-name">Sovereign Share — The People</div>
+          <p class="tier-desc">Held by a decentralized network of citizen jurors who have reached the highest tier of the Cognitive Sovereignty curriculum and maintain an active Logic Pulse.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Result: The Supreme Court can only override a smart contract if the Legislature and a representative sample of the Reasoning Public agree. Physical coercion of any single branch cannot compromise national cryptographic authority.</p>
+
+    <div class="divider"><span>silicon sovereignty</span></div>
+
+    <h3>Heterogeneous Attestation</h3>
+    <p>The national backbone cannot depend on a single hardware manufacturer. The MPC system requires approval from three different TEE implementations simultaneously — for example, Intel SGX, AMD SEV, and a sovereign RISC-V chip. An exploit in one manufacturer's supply chain cannot compromise the national keys.</p>
+
+    <div class="spec">
+      <div class="spec-label">The RISC-V Pivot</div>
+      <p>The national backbone progressively migrates toward RISC-V architecture, allowing for open-source, auditable hardware designs that can be fabricated in allied Sovereign Foundries. Phased rollout: begin with dual Intel/AMD attestation, add the RISC-V share as it reaches production readiness.</p>
+    </div>
+
+    <h3>The Epistemic Sunset</h3>
+    <p>Just as the founders' keys expire, the educational and governance specs must expire. Every five years, the logic curriculum's Red Team modules must be completely rewritten. The adversarial students of the current generation write the inoculation tests for the next. This prevents a static cathedral of thought from forming.</p>
+  </div>
+</section>
+
+<!-- SECTION IV: ENERGY -->
+<section id="energy">
+  <div class="container">
+    <div class="section-marker">Section IV</div>
+    <h2>The Energy Architecture</h2>
+    <p>Geothermal energy is the nation's primary sovereign asset. Its allocation is not merely economic — it is constitutional. The Energy Priority Stack is hard-coded into the grid operator software and cannot be overridden by economic signals alone.</p>
+
+    <div class="pull-quote">
+      <p>"An economic crisis is often an energy crisis. The Bitcoin reserve is treated as a national luxury, and its growth is paused to ensure the physical survival of the Mind."</p>
+    </div>
+
+    <h3>The Human-First Protocol</h3>
+    <p>The Export Drive (Bitcoin mining) is not a constant. It is a conditional variable, activated only after higher tiers are fully satisfied:</p>
+
+    <div class="tier-stack">
+      <div class="tier t1">
+        <div class="tier-num">T1</div>
+        <div class="tier-content">
+          <div class="tier-name">Life Support — Static, Absolute</div>
+          <p class="tier-desc">Residential heating/cooling, hospitals, ORGANON climate-control systems. Cannot be touched under any economic condition. Hard-coded floor.</p>
+        </div>
+      </div>
+      <div class="tier t2">
+        <div class="tier-num">T2</div>
+        <div class="tier-content">
+          <div class="tier-name">Sovereign Infrastructure — Variable</div>
+          <p class="tier-desc">The Sovereign Cloud, Terra Build factories, schools. Critical manufacturing. Activated only when T1 is 100% satisfied.</p>
+        </div>
+      </div>
+      <div class="tier t3">
+        <div class="tier-num">T3</div>
+        <div class="tier-content">
+          <div class="tier-name">Reserve Restoration — Flexible</div>
+          <p class="tier-desc">Bitcoin mining. Activated only when T1 and T2 are fully satisfied. First to be cut during any crisis — load shedding operates in reverse.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>The Virtual Battery</h3>
+    <p>Bitcoin miners are large flexible loads that can be throttled in milliseconds. Rather than simply shutting off during a crisis, they are used as a virtual battery — stabilizing the grid for citizens by absorbing or releasing load in real time, effectively acting as an emergency power reserve that pays for itself when not in use. This inverts the usual critique of Bitcoin mining energy consumption into a grid stabilization asset.</p>
+
+    <div class="spec sage">
+      <div class="spec-label">Implementation Note</div>
+      <p>This requires tight integration between the mining operation's control systems and the national grid operator's dispatch software. The technology is proven — already deployed in Texas and Paraguay — but demands careful engineering of the control interface between the blockchain layer and the physical grid layer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION V: EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-marker">Section V</div>
+    <h2>Education as Physical Security</h2>
+    <p>In a traditional state, security means a man with a gun. In the Sovereign Stack, security is the <em>cognitive friction of the population.</em> Education is not an input to the system — it is the physical security layer of the system.</p>
+
+    <div class="pull-quote">
+      <p>"You don't rely on the goodness of a central education department. You rely on the incentivized competition of diverse groups to out-think each other and the state."</p>
+    </div>
+
+    <h3>The Competitive Logic Marketplace</h3>
+    <p>The state does not set a single curriculum. Instead, the Sovereign Subnet funds multiple competing Logic Houses with distinct philosophical foundations — for example, Socratic Dialogue, Cybersecurity/Adversarial Thinking, and Classical Rhetoric. Families allocate their stablecoins to the house of their choice. Houses that produce students who successfully find Logic Bounties in national specs receive higher funding.</p>
+
+    <div class="spec gold">
+      <div class="spec-label">The Hacker Metric</div>
+      <p>The primary performance metric for Logic Houses is not test scores — it is the rate at which their students find valid logical bugs in real national governance specs during the public Red Team period. This aligns the incentive of educational institutions directly with the security of the state.</p>
+    </div>
+
+    <h3>Logic-as-a-Service Jury Selection</h3>
+    <p>Jurors are not simply random citizens. They are selected through Stochastically Sampled Proof-of-Competency. To enter the juror pool, a citizen must maintain a <strong>Logic Pulse</strong> — a weekly, low-stakes digital exercise in their personal Thinking Journal that tests their ability to spot framing and logical fallacies in current national debates.</p>
+    <p>Cognitive standing is always current. If you stop thinking, you lose your Sovereign Share of the multi-sig. You do not need to be exceptional — you need to prove your cognitive armor is <em>currently active.</em></p>
+
+    <h3>The Inconvenience Principle</h3>
+    <p>The UX of the national governance application is deliberately designed to be anti-addictive. No infinite scroll. No behavioral nudges. When a Supreme Court Override is triggered, citizen jurors must perform a Manual Reverse Translation — summarizing the risk of the override in their own words. If the AI detects copy-pasting or bot usage, the vote is invalidated.</p>
+    <p>The system makes it <em>hard</em> to comply blindly. Exercising power requires engaging gears.</p>
+
+    <div class="divider"><span>generational renewal</span></div>
+
+    <h3>The Epistemic Sunset</h3>
+    <p>Every five years, the logic curriculum's adversarial modules must be completely rewritten — by the adversarial students of the current generation for the next. No generation inherits its predecessor's assumptions as doctrine. The cathedral of thought is never allowed to calcify.</p>
+  </div>
+</section>
+
+<!-- SECTION VI: GENESIS -->
+<section id="genesis">
+  <div class="container">
+    <div class="section-marker">Section VI</div>
+    <h2>The Genesis Bridge — Year Zero</h2>
+    <p>Every system has a founding moment. The founding moment is the primary attack surface. The Sovereign Stack resolves this not through trust in founders, but through architectural constraints that render founder capture structurally impossible.</p>
+
+    <h3>The Zero-Day Constitutional Convention</h3>
+    <p>The founding proceeds in three phases, with a strict prohibition on any code being written until the plain-language intent is complete and independently verified:</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-node">Ph.1</div>
+        <div class="flow-body">
+          <div class="flow-title">The Intent Phase</div>
+          <p class="flow-desc">A traditional, human-led constitutional convention of elected delegates drafts the National Sovereignty Manifesto in plain natural language. No code is written. No cryptographic decisions are made.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node">Ph.2</div>
+        <div class="flow-body">
+          <div class="flow-title">The Compiling Phase</div>
+          <p class="flow-desc">Independent engineering teams — selected from different global jurisdictions and vetted by Logic Track graduates — compete to translate the Manifesto into formal specifications. No single team controls the output.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node">Ph.3</div>
+        <div class="flow-body">
+          <div class="flow-title">The Verification Phase</div>
+          <p class="flow-desc">A separate group of students and logic-auditors must prove the code matches the Manifesto's intent through the Reverse Translation protocol before any keys are generated.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>The Perpetual Power-of-Tau Ceremony</h3>
+    <p>Rather than a one-time trusted setup ritual (as in Zcash's famous ceremony), the nation uses a <strong>Continuous Trusted Setup</strong>. Any citizen can contribute their own entropy to the system's security at any time using their personal device. The mathematical guarantee: as long as at least one person in the history of the country was honest and destroyed their part of the secret, the entire national backbone remains secure. The founding attack surface is diluted into the entire population.</p>
+
+    <div class="spec">
+      <div class="spec-label">UX Note</div>
+      <p>Entropy contribution should be tied to civic milestones — graduation, first vote, Logic Mastery certification — so that the act feels natural rather than technical. Most citizens will never contribute entropy deliberately; the system must make it a byproduct of normal civic participation.</p>
+    </div>
+
+    <h3>The Cryptographic Sunset of Founders</h3>
+    <p>The initial MPC keys held by founding delegates are hard-coded to expire automatically after <strong>24 months</strong>. The system will not execute further state-level changes unless keys are regenerated by the Three-Branch Sharding structure. Founders are bootloaders — once the operating system is running, the bootloader is deleted.</p>
+
+    <h3>The Pre-Sovereign Juror Pool</h3>
+    <p>For the first 24 months, while the Logic Pulse is being established, jurors are selected from Phase One Educators and System Architects who built the specs — but with a mandatory adversarial split. If you helped write the Energy Spec, you are barred from the Energy Override jury. You may only judge the Education Spec, and vice versa. Bias cannot concentrate.</p>
+
+    <div class="spec gold">
+      <div class="spec-label">The Graduation-Triggered Handover</div>
+      <p>The system remains in Beta — founders' keys active — until the first cohort of students achieves their Logic Mastery credentials. The moment the first <strong>500 students</strong> are certified, the Sovereign Share of the multi-sig is automatically generated and distributed to them. The first generation that did not build the system is the one that officially inherits it. The 14-year-olds fire the founders.</p>
+    </div>
+
+    <h3>Founder-Funded Multi-Polarity</h3>
+    <p>Founders are constitutionally required to use the initial energy surplus or Bitcoin reserves to seed three distinct, competing Logic Houses with three different philosophical foundations before the stablecoin economy is mature enough to sustain them. Founders cannot sit on the boards of these houses. They provide the grant. They do not provide the doctrine.</p>
+  </div>
+</section>
+
+<!-- SECTION VII: CONCLUSION -->
+<section id="conclusion">
+  <div class="container">
+    <div class="section-marker">Section VII</div>
+    <h2>Honest Assessment</h2>
+
+    <p>The Sovereign Stack is one of the most internally coherent sovereign design frameworks built from first principles. It takes seriously the problems that actual nation-states routinely ignore.</p>
+
+    <h3>What Was Solved</h3>
+
+    <div class="risk-grid">
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Founder Capture</strong> — Cryptographic sunset clauses render founder privilege structurally temporary.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Bank Run Dynamics</strong> — Tax-floor demand and AMM backstops create intrinsic stablecoin utility.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Energy vs. Reserve Tension</strong> — Hard-coded human-first triage stack constitutionally prevents capital from displacing survival.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Silicon Sovereignty</strong> — Heterogeneous TEE attestation across competing manufacturers eliminates single-vendor dependency.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Spec Integrity</strong> — Reverse-translation and public defense requirements close the complexity-as-obscurity loophole.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Education Capture</strong> — Competitive Logic Marketplace eliminates single-point-of-capture; no central curriculum to corrupt.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Generational Capture</strong> — Epistemic Sunset forces each generation to attack its predecessor's assumptions.</p>
+      </div>
+      <div class="risk-card solution">
+        <div class="risk-label">Solved</div>
+        <p><strong>Circular Dependency</strong> — Education is now the security layer, not an input that the system hopes will work.</p>
+      </div>
+    </div>
+
+    <div class="conclusion">
+      <h2>The Load-Bearing Truth</h2>
+      <p>This is ultimately a <strong>multiplier</strong>, not a foundation. In the hands of a genuinely reasoning population it would be transformative. In the hands of a captured one, it would be an extraordinarily sophisticated cage.</p>
+      <p>Every system requires some trust at inception. The Sovereign Stack minimizes that trust to the smallest defensible surface: three Logic Houses seeded by founders who cannot sit on their boards, 500 adolescents who fire those founders, and a mathematical guarantee that holds as long as one honest person existed in the nation's history.</p>
+      <p style="color: var(--gold); font-family: 'Cinzel', serif; font-size: 1.05rem; margin-top: 1.5rem;">The cathedral is real. The foundation is human. That is not a flaw — it is the point.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>The Sovereign Stack · Complete Blueprint · Compiled 2026 · All architecture described herein is speculative and theoretical</p>
+  </div>
+</footer>
+
+</body>
+</html>
